@@ -237,3 +237,23 @@ Outputs:
     Value: !Ref PrivSN3
     Export:
       Name: PrivSN3Id      
+  rtPubId:
+    Description: ID of route table
+    Value: !Ref rtPub
+    Export:
+      Name: rtPubId     
+  rtPriv1Id:
+    Description: ID of route table
+    Value: !Ref rtPriv1
+    Export:
+      Name: rtPriv1Id               
+  rtPriv2Id:
+    Description: ID of route table
+    Value: !Ref rtPriv2
+    Export:
+      Name: rtPriv2Id    
+  rtPriv3Id:
+    Description: ID of route table
+    Value: !Ref rtPriv3
+    Export:
+      Name: rtPriv3Id                
