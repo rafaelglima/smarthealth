@@ -1,0 +1,20 @@
+Description: Bucket S3 para depósito de Imagens/Arquivos (ex. Imagens Dicom)
+
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: !Sub 'repo-users-dicom-${AWS::Region}-${AWS::AccountId}'
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'aws:kms'
+              KMSMasterKeyID: KMS-KEY-ARN
+
+Outputs:
+  BucketName: 
+    Description: Nome do Bucket da Camada de Usuários para Depósito de Imagens
+    Value: !Ref S3Bucket   
+    Export: 
+      Name: BucketName
