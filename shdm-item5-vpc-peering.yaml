@@ -1,0 +1,22 @@
+Description: VPC Peering Connection - Conexao entre Fog e Cloud Layers
+
+Resources:
+  #VPC Peering
+  vpcPeeringConnection:
+    Type: AWS::EC2::VPCPeeringConnection
+    Properties:
+      VpcId: !ImportValue 'VpcId'
+      #VPC de Destino (alterar o PeerVpcId)
+      PeerRegion: us-east-1
+      PeerVpcId: vpc-05183e56089aee723
+      Tags:
+      - Key: Name
+        Value: VPC-Peering-Fog-to-Cloud
+
+#Outputs
+Outputs:
+  VpcPeeringId:
+    Description: ID of created VPC Peering
+    Value: !Ref vpcPeeringConnection
+    Export:
+      Name: VpcPeeringId
