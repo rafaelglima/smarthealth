@@ -118,3 +118,8 @@ Outputs:
     Value: !Ref PubSN3
     Export:
       Name: PubSN3Id
+  rtPubId:
+    Description: ID of route table
+    Value: !Ref rtPub
+    Export:
+      Name: rtPubId    
