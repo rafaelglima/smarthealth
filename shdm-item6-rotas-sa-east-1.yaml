@@ -6,4 +6,4 @@ Resources:
     Properties:
       RouteTableId: !ImportValue 'rtPubId'
       DestinationCidrBlock: 10.20.0.0/16
-      GatewayId: !ImportValue 'VpcPeeringId'
+      VpcPeeringConnectionId: !ImportValue 'VpcPeeringId'
