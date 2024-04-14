@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  hapifhir:
+    container_name: container_hapifhir
+    image: "hapiproject/hapi:latest"
+    ports:
+      - "8080:8080"
+    configs:
+      - source: hapi
+        target: /app/config/application.yaml
+
+configs:
+  hapi:
+     file: ./application.yaml
