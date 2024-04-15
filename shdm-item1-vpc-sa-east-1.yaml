@@ -102,7 +102,9 @@ Outputs:
     Value:
       Fn::GetAtt:
         - vpcSH
-        - CidrBlock      
+        - CidrBlock 
+    Export:
+      Name: VpcSHCidrBlock     
   PubSN1Id:
     Description: ID of public subnet 1
     Value: !Ref PubSN1
