@@ -7,3 +7,9 @@ Resources:
       RouteTableId: !ImportValue 'rtPubId'
       DestinationCidrBlock: 10.20.0.0/16
       VpcPeeringConnectionId: !ImportValue 'VpcPeeringId'
+  Rota2:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      RouteTableId: !ImportValue 'rtPubId'
+      DestinationCidrBlock: 172.31.0.0/16
+      VpcPeeringConnectionId: !ImportValue 'VpcPeeringId2'    

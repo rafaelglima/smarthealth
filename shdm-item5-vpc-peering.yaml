@@ -1,4 +1,4 @@
-Description: VPC Peering Connection - Conexao entre Fog e Cloud Layers
+Description: VPC Peering Connection - Conexao entre Camadas de Usuarios, Nevoa e Nuvem
 
 Resources:
   #VPC Peering
@@ -12,11 +12,25 @@ Resources:
       Tags:
       - Key: Name
         Value: VPC-Peering-Fog-to-Cloud
-
+  vpcPeeringConnection2:
+    Type: AWS::EC2::VPCPeeringConnection
+    Properties:
+      VpcId: !ImportValue 'VpcId'
+      #VPC de Destino (alterar o PeerVpcId)
+      PeerRegion: sa-east-1
+      PeerVpcId: vpc-09a457505caf38242
+      Tags:
+      - Key: Name
+        Value: VPC-Peering-Users-to-Fog
 #Outputs
 Outputs:
   VpcPeeringId:
-    Description: ID of created VPC Peering
+    Description: ID of created VPC Peering Fog-to-Cloud
     Value: !Ref vpcPeeringConnection
     Export:
       Name: VpcPeeringId
+  VpcPeeringId2:
+    Description: ID of created VPC Peering Users-to-Fog
+    Value: !Ref vpcPeeringConnection2
+    Export:
+      Name: VpcPeeringId2 
