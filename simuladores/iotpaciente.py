@@ -15,9 +15,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Configurações do MySQL
 db_config = {
-    'host': 'bancologs.c7kcq6eqamub.sa-east-1.rds.amazonaws.com',
+    'host': 'bancologs-base.ch8o80maetn5.us-east-1.rds.amazonaws.com',
     'user': 'admin',
-    'password': '1fiPE9u0p2U9SSOjWZ9h',  # substitua pela sua senha
+    'password': 'OWOvwXT4n4pP1Q5j4C4D',  # substitua pela sua senha
     'database': 'lambdalogs'
 }
 
@@ -43,12 +43,12 @@ while (cont < 1):
     SIMULATION_DURATION = 1800  # Duração da simulação em segundos
 
     # Definição do endpoint AWS IoT
-    host = 'a19ppd9pj5qumm-ats.iot.sa-east-1.amazonaws.com'
+    host = 'a2sryy6dg4nuu6-ats.iot.us-east-1.amazonaws.com' 
 
-    # Certificados
-    rootCAPath = 'AmazonRootCA1 (3).pem'
-    privateKeyPath = '5687cd371b0c83b4b2c359c81fde56e0f967877997d2baf43235dc3d38b19b90-private.pem.key'
-    certificatePath = '5687cd371b0c83b4b2c359c81fde56e0f967877997d2baf43235dc3d38b19b90-certificate.pem.crt'
+    # Certificados AWS
+    rootCAPath = 'AmazonRootCA1.pem'
+    privateKeyPath = '1dea09b759d5f171118d55135572278ba07ff68c237584505dc46b12f911f89f-private.pem.key'
+    certificatePath = '1dea09b759d5f171118d55135572278ba07ff68c237584505dc46b12f911f89f-certificate.pem.crt'
 
     # Inicializa o cliente MQTT
     mqtt_client = AWSIoTMQTTClient(str(uuid.uuid4()))
@@ -174,7 +174,7 @@ while (cont < 1):
         if topic == 'monitoramento/oximetria_pulso':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1,776647,817225,817310,817314,817317,817320,817333,817334,817335]),
+            'paciente_id': random.choice([3838965,3838966,3838967,3838968,3838969,3838970,3838971,3838972,3838973,3838974]),
             'valor': fake.random_int(min=100, max=100),
             'unidade': '%',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -183,7 +183,7 @@ while (cont < 1):
         elif topic == 'monitoramento/quedas':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024781,1024836,1024785,1024840,1024841,1024786,1024842,1024843,1024787,1024790]),
+            'paciente_id': random.choice([3838975,3838976,3838977,3838978,3838979,3838980,3838981,3838982,3838983,3838984]),
             'valor': fake.random_int(min=1, max=1),
             'unidade': 'int',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -192,7 +192,7 @@ while (cont < 1):
         elif topic == 'monitoramento/pressao_arterial':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024846,1024791,1024847,1024848,1024792,1024796,1024797,1024852,1024798,1024799]),
+            'paciente_id': random.choice([3838985,3838986,3838987,3838988,3838989,3838990,3838991,3838992,3838993,3838994]),
             'valorPAS': fake.random_int(min=132, max=132),
             'valorPAD': fake.random_int(min=88, max=88),
             'unidade': 'mmHg',
@@ -202,7 +202,7 @@ while (cont < 1):
         elif topic == 'monitoramento/glicemia':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024800,1024853,1024856,1024904,1024905,1024858,1024859,1024906,1024862,1024865]),
+            'paciente_id': random.choice([3838995,3838996,3838997,3838998,3838999,3839000,3839001,3839002,3839003,3839004]),
             'valor': fake.random_int(min=220, max=220),
             'unidade': 'mg/dL',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -211,7 +211,7 @@ while (cont < 1):
         elif topic == 'monitoramento/temperatura_ambiente':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024866,1024867,1024907,1024868,1024871,1024912,1024913,1024872,1024873,1024914]),
+            'paciente_id': random.choice([3839005,3839006,3839007,3839008,3839009,3839010,3839011,3839012,3839013,3839014]),
             'valor': fake.random_int(min=50, max=50),
             'unidade': 'ºC',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -220,7 +220,7 @@ while (cont < 1):
         elif topic == 'monitoramento/frequencia_cardiaca':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024874,1024918,1024877,1024919,1024878,1024920,1024879,1024880,1024923,1024924]),
+            'paciente_id': random.choice([3839015,3839016,3839017,3839018,3839019,3839020,3839021,3839022,3839023,3839024]),
             'valor': fake.random_int(min=110, max=110),
             'unidade': 'bpm',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -229,7 +229,7 @@ while (cont < 1):
         elif topic == 'monitoramento/frequencia_respiratoria':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024884,1024885,1024886,1024887,1024891,1024927,1024892,1024893,1024928,1024929]),
+            'paciente_id': random.choice([3839025,3839026,3839027,3839028,3839029,3839030,3839031,3839032,3839033,3839034]),
             'valor': fake.random_int(min=22, max=22),
             'unidade': 'mrm',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -238,7 +238,7 @@ while (cont < 1):
         elif topic == 'monitoramento/umidade_relativa':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024894,1024932,1024899,1024900,1024901,1024952,1024933,1024953,1024937,1024957]),
+            'paciente_id': random.choice([3839035,3839036,3839037,3839038,3839039,3839040,3839041,3839042,3839043,3839044]),
             'valor': fake.random_int(min=100, max=100),
             'unidade': '%',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -247,7 +247,7 @@ while (cont < 1):
         elif topic == 'monitoramento/temperatura_corporal':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024958,1024938,1024959,1024960,1024965,1024940,1024966,1024941,1024942,1024943]),
+            'paciente_id': random.choice([3839045,3839046,3839047,3839048,3839049,3839050,3839051,3839052,3839053,3839054]),
             'valor': fake.random_int(min=40, max=40),
             'unidade': 'ºC',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
@@ -256,7 +256,7 @@ while (cont < 1):
         elif topic == 'monitoramento/geolocalizacao':
             message = {
             'dispositivo_id': str(uuid.uuid4()),
-            'paciente_id': random.choice([1024968,1024947,1024970,1024971,1024948,1024972,1024949,1024974,1025004,1025005]),
+            'paciente_id': random.choice([3839055,3839056,3839057,3839058,3839059,3839060,3839061,3839062,3839063,3839064]),
             'valorLATITUDE': fake.random_int(min=-90, max=90),
             'valorLONGITUDE': fake.random_int(min=-180, max=180),
             'valorPRECISAO': fake.random_int(min=0, max=5),
@@ -307,7 +307,10 @@ while (cont < 1):
     print('Dispositivos desconectados.')
 
     # Lista de grupos de logs que devem ser ignorados (usando partes dos nomes)
-    excluded_log_groups = ['msk', 'shdm', 'API', 'ipfs', 'users']
+    excluded_log_groups = [
+        'lambda-cloud-images-dev-s3_handler',
+        'lambda-cloud-iot-api-dev'
+    ]
 
     # Baixar logs da última hora
     end_time = datetime.now(timezone.utc)
@@ -400,8 +403,8 @@ while (cont < 1):
     start_time = end_time - timedelta(seconds=SIMULATION_DURATION)
 
     query = """
-        SELECT idobservation, idpaciente, nomedevice, tempo1, tempo2, tempo3, tempo4, tempo5, timestamp_column, valor1, valor2, valor3
-        FROM logscompletoiot
+        SELECT idobservation, idpaciente, nomedevice, tempo1, tempo2, tempo3, timestamp_column, valor1, valor2, valor3
+        FROM logsbaselineiot
         WHERE timestamp_column BETWEEN %s AND %s
     """
     cursor.execute(query, (start_time, end_time))
@@ -417,8 +420,6 @@ while (cont < 1):
             'Tempo1': log['tempo1'],
             'Tempo2': log['tempo2'],
             'Tempo3': log['tempo3'],
-            'Tempo4': log['tempo4'],
-            'Tempo5': log['tempo5'],
             'Timestamp': log['timestamp_column'],
             'Valor1': log['valor1'],
             'Valor2': log['valor2'],
@@ -430,8 +431,6 @@ while (cont < 1):
     df['Tempo1'] = df['Tempo1'].map(lambda x: f"{x:.6f}")
     df['Tempo2'] = df['Tempo2'].map(lambda x: f"{x:.6f}")
     df['Tempo3'] = df['Tempo3'].map(lambda x: f"{x:.6f}")
-    df['Tempo4'] = df['Tempo4'].map(lambda x: f"{x:.6f}")
-    df['Tempo5'] = df['Tempo5'].map(lambda x: f"{x:.6f}")
 
     timestamp_str = end_time.strftime('%Y-%m-%d_%H-%M-%S')
     output_excel = os.path.join(output_dir, f'dados_{timestamp_str}.xlsx')
