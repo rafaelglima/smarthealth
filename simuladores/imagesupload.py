@@ -9,10 +9,11 @@ import pymysql
 from datetime import datetime, timezone, timedelta
 from botocore.exceptions import NoCredentialsError
 
+# Configurações do MySQL
 db_config = {
-    'host': 'bancologs.c7kcq6eqamub.sa-east-1.rds.amazonaws.com',
+    'host': 'bancologs-base.ch8o80maetn5.us-east-1.rds.amazonaws.com',
     'user': 'admin',
-    'password': '1fiPE9u0p2U9SSOjWZ9h',  
+    'password': 'OWOvwXT4n4pP1Q5j4C4D',  # substitua pela sua senha
     'database': 'lambdalogs'
 }
 
@@ -20,9 +21,9 @@ cont = 0
 
 while cont < 1:
     # Configurações do S3
-    bucket_name = 'repo-users-dicom-sa-east-1-904233115303'  # Substitua pelo nome do seu bucket S3
-    folder_path = 'basecompleta'
-    target_lambda = 'lambda-fog-ipfs-dev-s3_handler'  
+    bucket_name = 'repo-users-dicom-sa-east-1-905418066307'  # Substitua pelo nome do seu bucket S3
+    folder_path = 'basecompleta'  # Substitua pelo caminho da pasta local com as imagens
+    target_lambda = 'lambda-cloud-images-dev-s3_handler'
 
     # Inicializa o cliente S3
     s3 = boto3.client('s3')
@@ -145,8 +146,8 @@ while cont < 1:
         cursor = connection.cursor(pymysql.cursors.DictCursor)
 
         query = """
-            SELECT idobservation, nomedevice, tempo1, tempo2, tempo3, tempo4, tempo5
-            FROM logscompletoimages
+            SELECT idobservation, nomedevice, tempo1, tempo2, tempo3
+            FROM logsbaselineimages
             WHERE timestamp_column BETWEEN %s AND %s
         """
         cursor.execute(query, (start_time, end_time))
@@ -160,9 +161,7 @@ while cont < 1:
                 'NomeDevice': log['nomedevice'],
                 'Tempo1': log['tempo1'],
                 'Tempo2': log['tempo2'],
-                'Tempo3': log['tempo3'],
-                'Tempo4': log['tempo4'],
-                'Tempo5': log['tempo5']
+                'Tempo3': log['tempo3']
             })
 
         # Salvar os dados em um arquivo Excel
@@ -172,8 +171,6 @@ while cont < 1:
         df['Tempo1'] = df['Tempo1'].map(lambda x: f"{x:.6f}")
         df['Tempo2'] = df['Tempo2'].map(lambda x: f"{x:.6f}")
         df['Tempo3'] = df['Tempo3'].map(lambda x: f"{x:.6f}")
-        df['Tempo4'] = df['Tempo4'].map(lambda x: f"{x:.6f}")
-        df['Tempo5'] = df['Tempo5'].map(lambda x: f"{x:.6f}")
 
         # Criar o caminho do arquivo de saída com base no diretório e timestamp
         timestamp_str = end_time.strftime('%Y-%m-%d_%H-%M-%S')
