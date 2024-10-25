@@ -1,4 +1,4 @@
-Smart Health Data Management - SHDM
+Repositório - Smart Health Data Management (SHDM)
 
 -> Repositório da Arquitetura SHDM (Smart Health Data Management) utilizando Amazon Web Services (AWS)
 
