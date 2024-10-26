@@ -59,7 +59,7 @@ def s3_handler(event):
             "type": {
                 "coding": [
                     {
-                        "system": "http://terminology.hl7.org/CodeSystem/media-type",
+                        "system": "https://terminology.hl7.org/ValueSet-v3-MediaType.html",
                         "code": "image",
                         "display": "Image"
                     }
