@@ -75,8 +75,8 @@ while (cont < 1):
             message = {
             'dispositivo_id': str(uuid.uuid4()),
             'paciente_id': paciente_id,
-            'valor': fake.random_int(min=154, max=154),
-            'unidade': 'int',
+            'valor': fake.random_int(min=85, max=100),
+            'unidade': 'SpO2',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
             '_id_': fake.random_int(min=90, max=100),
             }
