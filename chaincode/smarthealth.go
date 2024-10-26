@@ -12,7 +12,7 @@ import (
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
-// SmartContract provides functions for managing a car
+// SmartContract provides functions for managing measurements
 type SmartContract struct {
 	contractapi.Contract
 }
@@ -45,7 +45,7 @@ type QueryResult2 struct {
 	Record *File
 }
 
-// InitLedger adds a base set of cars to the ledger
+// InitLedger adds a base set of itens to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	measurements := []SensorMeasurement{
 		SensorMeasurement{DeviceId: "", PatientId: "", Unit: "", Value1: "", Value2: "", Value3: "", Timestamp: ""},
@@ -76,7 +76,7 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 	return nil
 }
 
-// CreateCar adds a new car to the world state with given details
+//  adds a new sensor measurement to the world state with given details
 func (s *SmartContract) CreateSensorMeasurement(ctx contractapi.TransactionContextInterface, measurementNumber string, deviceId string, patientId string, unit string, value1 string, value2 string, value3 string, timestamp string) error {
 	measurement := SensorMeasurement{
 		DeviceId:   deviceId,
@@ -106,7 +106,7 @@ func (s *SmartContract) CreateFile(ctx contractapi.TransactionContextInterface, 
 	return ctx.GetStub().PutState(fileNumber, fileAsBytes)
 }
 
-// QueryCar returns the car stored in the world state with given id
+// returns the sensor measurement stored in the world state with given id
 func (s *SmartContract) QuerySensorMeasurement(ctx contractapi.TransactionContextInterface, measurementNumber string) (*SensorMeasurement, error) {
 	measurementAsBytes, err := ctx.GetStub().GetState(measurementNumber)
 
@@ -141,7 +141,7 @@ func (s *SmartContract) QueryFile(ctx contractapi.TransactionContextInterface, f
 	return file, nil
 }
 
-// QueryAllCars returns all cars found in world state
+//  returns all sensor measurements found in world state
 func (s *SmartContract) QueryAllSensorMeasurements(ctx contractapi.TransactionContextInterface) ([]QueryResult, error) {
 	startKey := ""
 	endKey := ""
@@ -201,21 +201,6 @@ func (s *SmartContract) QueryAllFiles(ctx contractapi.TransactionContextInterfac
 
 	return results, nil
 }
-
-// ChangeCarOwner updates the owner field of car with given id in world state
-//func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterface, sensorNumber string, newOwner string) error {
-//	sensor, err := s.QueryCar(ctx, sensorNumber)
-
-//	if err != nil {
-//		return err
-//	}
-
-//	sensor.Owner = newOwner
-
-//	sensorAsBytes, _ := json.Marshal(sensor)
-
-//	return ctx.GetStub().PutState(sensorNumber, sensorAsBytes)
-//}
 
 func main() {
 
