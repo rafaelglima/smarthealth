@@ -13,22 +13,17 @@ from datetime import datetime
 
 app = Chalice(app_name='lambda-fog-iot')
 
-
 @app.lambda_function(name='frequencia_cardiaca')
 def frequencia_cardiaca(event, context):
     timestamp1=datetime.now() # Exemplo dos TimeStamps coletados durante a execução
-    #date_format = "%Y-%m-%dT%H:%M:%S"
-    #valor = json.loads(event['body']) # Converte a requisição para uma variavel
-    #valordata = datetime.strptime(valor['datahora'], date_format)
-    #valor = json.loads(json.dumps(event))
     json_string = json.dumps(event)
 
+    # banco de dados apenas para persistir a coleta dos tempos para analise estatistica
     host = "bancologs.c7kcq6eqamub.sa-east-1.rds.amazonaws.com"
     user = "admin"
     password = "1fiPE9u0p2U9SSOjWZ9h"
     database = "lambdalogs"
 
-    
     # Analisando a string JSON
     data = json.loads(json_string)
     value = [record['value'] for record in data if record['topic'] == 'topic-frequencia-cardiaca']
@@ -79,7 +74,7 @@ def frequencia_cardiaca(event, context):
     timestamp3 = datetime.now()
     
     try:
-        conn = http.client.HTTPConnection('acdba15b2a6dd4ffc810773b2c1ee2e1-818048396.us-east-1.elb.amazonaws.com',8080) #('10.20.12.58', 31621) 
+        conn = http.client.HTTPConnection('acdba15b2a6dd4ffc810773b2c1ee2e1-818048396.us-east-1.elb.amazonaws.com',8080) # endereco HAPI FHIR
         conn.request('POST', '/fhir/Observation', jsonfhir, headers)
         response = conn.getresponse()
         
@@ -89,8 +84,7 @@ def frequencia_cardiaca(event, context):
             response_data = response.read()
             response_json = json.loads(response_data)
             id_observation = response_json.get('id')
-                
-                
+                  
             BC_json={
             "id": id_observation,
             "deviceId": valor['dispositivo_id'],
@@ -101,14 +95,12 @@ def frequencia_cardiaca(event, context):
             "value3": 0,
             "timestamp": valor['datahora']
             }
-            
-                        
+                
             jsonBC = json.dumps(BC_json)
             timestamp5 = datetime.now()
             
-
             try:
-                conn = http.client.HTTPSConnection('khnqmo67dzocjdbgjmdkimvdya0vvdth.lambda-url.us-east-1.on.aws')
+                conn = http.client.HTTPSConnection('khnqmo67dzocjdbgjmdkimvdya0vvdth.lambda-url.us-east-1.on.aws') # endereco API Blockchain
                 conn.request('POST', '/addmeasurement', jsonBC, headers)
                 response = conn.getresponse()
                                 
@@ -125,8 +117,7 @@ def frequencia_cardiaca(event, context):
                     result = ",".join([labeled_ID, labeled_pacient, labeled_Nome, labeled_Tempo1, labeled_Tempo2, labeled_Tempo3,labeled_Tempo4])
                     print(result) 
                     
-                    try:
-                        
+                    try:         
                         connection = pymysql.connect(
                             host=host,
                             user=user,
@@ -163,8 +154,7 @@ def frequencia_cardiaca(event, context):
                 
     except httpx.HTTPError as exc:
         print(f"Erro durante a solicitação POST: {exc}")
-        
-        
+         
     return True
     
 @app.lambda_function(name='temperatura_corporal')
