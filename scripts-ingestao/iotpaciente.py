@@ -93,8 +93,8 @@ while (cont < 1):
             message = {
             'dispositivo_id': str(uuid.uuid4()),
             'paciente_id': paciente_id,
-            'valorPAS': fake.random_int(min=108, max=132),
-            'valorPAD': fake.random_int(min=72, max=88),
+            'valorPAS': fake.random_int(min=108, max=132),    #pressao arterial sistõlica (PAS)
+            'valorPAD': fake.random_int(min=72, max=88),      #pressão arterial diastólica
             'unidade': 'mmHg',
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
             '_id_': fake.random_int(min=90, max=100),
@@ -122,7 +122,7 @@ while (cont < 1):
             'dispositivo_id': str(uuid.uuid4()),
             'paciente_id': paciente_id,
             'valor': fake.random_int(min=45, max=110),
-            'unidade': 'bpm',
+            'unidade': 'bpm', # batimentos por minuto (bpm)
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
             '_id_': fake.random_int(min=90, max=100),
             }                       
@@ -131,7 +131,7 @@ while (cont < 1):
             'dispositivo_id': str(uuid.uuid4()),
             'paciente_id': paciente_id,
             'valor': fake.random_int(min=10, max=22),
-            'unidade': 'mrm',
+            'unidade': 'irm', # incursões respiratórias por minuto (irm)
             'datahora': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'),
             '_id_': fake.random_int(min=90, max=100),
             }
