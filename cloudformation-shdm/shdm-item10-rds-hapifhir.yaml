@@ -25,6 +25,7 @@ Parameters:
     Default: 'hapifhir'
     Type: String
   DBInstanceClass:
+    #no processo de experimentacao deve-se mudar e adicionar a replicação
     Default: db.t3.micro
     Description: DB instance class
     Type: String
@@ -57,10 +58,6 @@ Resources:
         FromPort: 5432
         ToPort: 5432
         CidrIp: 10.20.0.0/16    
-      #- IpProtocol: tcp
-      #  FromPort: 5432
-      #  ToPort: 5432
-      #  CidrIp: 10.30.0.0/16
       # Regra para liberar o acesso do Bastion Host, se localizado na camada Fog.  
       - IpProtocol: tcp
         FromPort: 5432
