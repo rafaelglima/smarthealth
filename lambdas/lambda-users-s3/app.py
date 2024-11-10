@@ -23,10 +23,10 @@ def s3_handler(event):
         s3_client = boto3.client('s3')
 
         # banco de dados apenas para persistir os tempos para analise estatistica. alterar os valores.
-        host = ""
-        user = ""
-        password = ""
-        database = ""
+        host = "bancologs.c7kcq6eqamub.sa-east-1.rds.amazonaws.com"
+        user = "admin"
+        password = "1fiPE9u0p2U9SSOjWZ9h"
+        database = "lambdalogs"
 
         timestamp1=datetime.now()
         # Download do arquivo do S3 vindo do script
@@ -53,10 +53,10 @@ def s3_handler(event):
 
                         
             insert_query = """
-            INSERT INTO baseline (tempo1) 
+            INSERT INTO logscompletoimages (tempo1) 
             VALUES (%s);
             """
-            cursor.execute(insert_query, (Tempo0))
+            cursor.execute(insert_query, (Tempo1))
                         
                         
             connection.commit()
