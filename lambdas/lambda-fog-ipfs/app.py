@@ -36,7 +36,7 @@ def s3_handler(event):
         temp_file = "/tmp/" + event.key  # Caminho temporário para armazenar o arquivo
         s3.download_file(event.bucket, event.key, temp_file)
         timestamp2=datetime.now()
-        Tempo1=(timestamp2-timestamp1).total_seconds()
+        Tempo2=(timestamp2-timestamp1).total_seconds()
         
         # Adicionar arquivo ao IPFS
         with open(temp_file, 'rb') as file:
@@ -50,7 +50,7 @@ def s3_handler(event):
         ipfs_pin = ipfs_client.pins.add(ipfs_hash)
         
         timestamp3=datetime.now()
-        Tempo2=(timestamp3-timestamp2).total_seconds()
+        Tempo3=(timestamp3-timestamp2).total_seconds()
         datahora = datetime.now().isoformat()
         timestamp4=datetime.now()
         Media_Json={
@@ -87,7 +87,7 @@ def s3_handler(event):
         'Content-Type': 'application/json',
         }
         timestamp5=datetime.now()
-        Tempo3=(timestamp5-timestamp4).total_seconds()
+        Tempo4=(timestamp5-timestamp4).total_seconds()
         
         try:
             conn = http.client.HTTPConnection('acdba15b2a6dd4ffc810773b2c1ee2e1-818048396.us-east-1.elb.amazonaws.com',8080) #endereco Cluster HAPI FHIR
@@ -108,7 +108,7 @@ def s3_handler(event):
                 
                 jsonBC = json.dumps(BC_json)
                 timestamp6=datetime.now()
-                Tempo4=(timestamp6-timestamp5).total_seconds()
+                Tempo5=(timestamp6-timestamp5).total_seconds()
                 timestamp7=datetime.now()
                 try:
                     conn = http.client.HTTPSConnection('khnqmo67dzocjdbgjmdkimvdya0vvdth.lambda-url.us-east-1.on.aws') #endereco da lambda bc
@@ -117,15 +117,15 @@ def s3_handler(event):
                                     
                     if response.status // 100 == 2:
                         timestamp8=datetime.now()
-                        Tempo5=(timestamp8-timestamp7).total_seconds()
-                        labeled_Tempo1 = f"tempo1={Tempo1}"
-                        labeled_Tempo2 = f"tempo2={Tempo2}"
-                        labeled_Tempo3 = f"tempo3={Tempo3}"
-                        labeled_Tempo4 = f"tempo4={Tempo4}"
-                        labeled_Tempo5 = f"tempo5={Tempo5}"
+                        Tempo6=(timestamp8-timestamp7).total_seconds()
+                        labeled_Tempo2 = f"tempo1={Tempo2}"
+                        labeled_Tempo3 = f"tempo2={Tempo3}"
+                        labeled_Tempo4 = f"tempo3={Tempo4}"
+                        labeled_Tempo5 = f"tempo4={Tempo5}"
+                        labeled_Tempo6 = f"tempo5={Tempo6}"
                         labeled_ID = f"IdObservation={id_media}"
                         labeled_Nome = f"NomeDevice=Images"
-                        result = ",".join([labeled_ID, labeled_Nome, labeled_Tempo1, labeled_Tempo2, labeled_Tempo3,labeled_Tempo4, labeled_Tempo5])
+                        result = ",".join([labeled_ID, labeled_Nome, labeled_Tempo2, labeled_Tempo3, labeled_Tempo4,labeled_Tempo5, labeled_Tempo6])
                         print(result)
                         try:
                         
@@ -138,10 +138,10 @@ def s3_handler(event):
                             cursor = connection.cursor()
 
                             insert_query = """
-                            INSERT INTO logscompletoimages (idobservation, nomedevice, tempo1, tempo2, tempo3, tempo4, tempo5) 
+                            INSERT INTO logscompletoimages (idobservation, nomedevice, tempo2, tempo3, tempo4, tempo5, tempo6) 
                             VALUES (%s, %s, %s, %s, %s, %s, %s);
                             """
-                            cursor.execute(insert_query, (id_media, 'images', Tempo1, Tempo2, Tempo3, Tempo4, Tempo5))
+                            cursor.execute(insert_query, (id_media, 'images', Tempo2, Tempo3, Tempo4, Tempo5, Tempo6))
                                      
                             connection.commit()
                             print("Dados inseridos no MySQL com sucesso!")
